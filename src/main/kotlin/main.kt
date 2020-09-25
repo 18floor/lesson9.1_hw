@@ -34,7 +34,7 @@ fun main() {
     ))
     service.addMessage(userId = 2, Message(
             messageId = 1,
-            chatId = 3,
+            chatId = 2,
             userTo = 2,
             userFrom = 3,
             messageText = "From Larry to Tommy",
@@ -43,7 +43,7 @@ fun main() {
     ))
     service.addMessage(userId = 1, Message(
             messageId = 1,
-            chatId = 2,
+            chatId = 3,
             userTo = 1,
             userFrom = 3,
             messageText = "From Larry to Bill",
@@ -61,7 +61,7 @@ fun main() {
     ))
     service.addMessage(userId = 3, Message(
             messageId = 1,
-            chatId = 2,
+            chatId = 3,
             userTo = 3,
             userFrom = 1,
             messageText = "From Bill to Larry",

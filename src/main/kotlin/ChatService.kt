@@ -19,23 +19,25 @@ class ChatService {
 
         val userCheck: Boolean = users.last().userId >= userId
 
-        if (makeChat(userId, message.userFrom) && userCheck) {
+        if (makeChat(userId, message.userFrom) == 0 && userCheck) {
             messages.plusAssign(message.copy(messageId = mid++, chatId = cid++, userTo = userId))
             return mid
         } else if (userCheck) {
-            messages.plusAssign(message.copy(messageId = mid++, chatId = message.chatId, userTo = userId))
+            messages.plusAssign(message.copy(messageId = mid++, chatId = makeChat(userId, message.userFrom),
+                    userTo = userId))
             return mid
         }
         return 0
     }
 
-    private fun makeChat(userId: Int, userFrom: Int): Boolean {
+    private fun makeChat(userId: Int, userFrom: Int): Int {
         for (message in messages) {
             if ((message.userTo == userId || message.userTo == userFrom)
-                    && ((message.userFrom == userFrom || message.userFrom == userId))
-            ) return false
+                    && (message.userFrom == userFrom || message.userFrom == userId)) {
+                return message.chatId
+            }
         }
-        return true
+        return 0
     }
 
     fun deleteChat(chatId: Int): Boolean {
