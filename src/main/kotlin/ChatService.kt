@@ -52,7 +52,7 @@ class ChatService {
         var result: MutableList<Message> = mutableListOf()
         return try {
             result = messages.filter { message ->
-                message.chatId == chatId
+                message.chatId == chatId && !message.read
             }.takeLastWhile { it.messageId > messageId } as MutableList<Message>
 
             messages.filter { message ->

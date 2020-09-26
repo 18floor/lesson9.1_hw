@@ -69,13 +69,24 @@ fun main() {
             read = false
     ))
 
+    val i = Message(
+            messageId = 1,
+            chatId = 1,
+            userTo = 1,
+            userFrom = 1,
+            messageText = "From Bill to Larry",
+            date = 123123123,
+            read = false
+    )
+
     println(service)
 
     println("Incoming unread chats: " + service.getUnreadChatsCount(userId = 1))
     println("Incoming users chats: " + service.getUnreadChats(userId = 1))
 
 //    println(service.deleteChat(chatId = 1))
-//    println(service.getListMessages(chatId = 1, messageId = 1))
+    println(service.getListMessages(chatId = 1, messageId = 1))
+    println(service.getListMessages(chatId = 1, messageId = 1))
 
-//    println(service)
+    println(service.addMessage(userId = 10, i))
 }
