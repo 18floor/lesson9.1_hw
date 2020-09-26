@@ -9,7 +9,7 @@ class ChatServiceTest {
     @Test
     fun addUser() {
         val service = ChatService()
-        val user = service.addUser(User(
+        service.addUser(User(
                 userId = 1,
                 fullName = "Bill"
         ))

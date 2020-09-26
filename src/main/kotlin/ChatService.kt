@@ -72,12 +72,16 @@ class ChatService {
         }.groupBy { it.chatId }.count()
     }
 
-    fun getUnreadChats(userId: Int): MutableMap<Int, Message> {
-        val result = mutableMapOf<Int, Message>()
+    fun getUnreadChats(userId: Int): MutableMap<Int, User> {
+        val result = mutableMapOf<Int, User>()
 
         for (message in messages) {
             if (!message.read && message.userTo == userId) {
-                result[message.chatId] = message
+                for (user in users) {
+                    if (user.userId == message.userFrom) {
+                        result[message.chatId] = user
+                    }
+                }
             }
         }
         return result

@@ -19,7 +19,7 @@ fun main() {
             chatId = 1,
             userTo = 1,
             userFrom = 2,
-            messageText = "From Bill to Tommy",
+            messageText = "From Tommy to Bill",
             date = 123123123,
             read = false
     ))
@@ -28,7 +28,7 @@ fun main() {
             chatId = 1,
             userTo = 2,
             userFrom = 1,
-            messageText = "From Tommy to Bill",
+            messageText = "From Bill to Tommy",
             date = 123123123,
             read = false
     ))
@@ -69,12 +69,10 @@ fun main() {
             read = false
     ))
 
-
-
     println(service)
 
-    println("Incoming unread: " + service.getUnreadChatsCount(userId = 1))
-    println(service.getUnreadChats(userId = 1))
+    println("Incoming unread chats: " + service.getUnreadChatsCount(userId = 1))
+    println("Incoming users chats: " + service.getUnreadChats(userId = 1))
 
 //    println(service.deleteChat(chatId = 1))
 //    println(service.getListMessages(chatId = 1, messageId = 1))
