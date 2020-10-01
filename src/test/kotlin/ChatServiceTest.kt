@@ -479,14 +479,14 @@ class ChatServiceTest {
     @Test
     fun getUnreadChats() {
         val service = ChatService()
-        val user = User(
+        service.addUser(User(
                 userId = 1,
                 fullName = "Bill"
-        )
-        val user1 = User(
+        ))
+        service.addUser(User(
                 userId = 1,
                 fullName = "Bill"
-        )
+        ))
         val message = Message(
                 messageId = 1,
                 chatId = 1,
@@ -499,15 +499,23 @@ class ChatServiceTest {
         val message1 = Message(
                 messageId = 1,
                 chatId = 1,
-                userTo = 1,
+                userTo = 2,
                 userFrom = 1,
                 messageText = "From Bill to Tommy",
                 date = 123123123,
                 read = false
         )
-        val expected = mutableMapOf(1 to user)
-        service.addUser(user)
-        service.addUser(user1)
+        val message2 = Message(
+                messageId = 2,
+                chatId = 1,
+                userTo = 2,
+                userFrom = 1,
+                messageText = "From Bill to Tommy",
+                date = 123123123,
+                read = false
+        )
+        val list = listOf<Message>(message2)
+        val expected = mutableMapOf(1 to list)
         service.addMessage(userId = 1, message)
         service.addMessage(userId = 2, message1)
         val result = service.getUnreadChats(userId = 2)

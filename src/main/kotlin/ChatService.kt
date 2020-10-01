@@ -61,24 +61,16 @@ class ChatService {
     }
 
     fun getUnreadChatsCount(userId: Int): Int {
-        return messages.filter { message ->
-            !message.read && message.userTo == userId
-        }.groupBy { it.chatId }.count()
+        return messages.asSequence()
+                .filter { !it.read && it.userTo == userId }
+                .groupBy { it.chatId }
+                .count()
     }
 
-    fun getUnreadChats(userId: Int): MutableMap<Int, User> {
-        val result = mutableMapOf<Int, User>()
-
-        for (message in messages) {
-            if (!message.read && message.userTo == userId) {
-                for (user in users) {
-                    if (user.userId == message.userFrom) {
-                        result[message.chatId] = user
-                    }
-                }
-            }
-        }
-        return result
+    fun getUnreadChats(userId: Int): Map<Int, List<Message>> {
+        return messages.asSequence()
+                .filter { !it.read && it.userTo == userId }
+                .groupBy { it.chatId }
     }
 
     override fun toString(): String {
