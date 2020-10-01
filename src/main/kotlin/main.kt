@@ -86,7 +86,6 @@ fun main() {
 
 //    println(service.deleteChat(chatId = 1))
     println(service.getListMessages(chatId = 1, messageId = 1))
-    println(service.getListMessages(chatId = 1, messageId = 1))
 
     println(service.addMessage(userId = 10, i))
 }

@@ -1,17 +1,16 @@
 package ru.netology
 
-@Suppress("UNREACHABLE_CODE")
 class ChatService {
 
     private var users: MutableList<User> = mutableListOf()
     private var messages: MutableList<Message> = mutableListOf()
 
-    private var uid: Int = 1
-    private var mid: Int = 1
-    private var cid: Int = 1
+    private var userIdInc: Int = 1
+    private var messageIdInc: Int = 1
+    private var chatIdInc: Int = 1
 
     fun addUser(user: User): User {
-        users.plusAssign(user.copy(userId = uid++))
+        users.plusAssign(user.copy(userId = userIdInc++))
         return users.last()
     }
 
@@ -20,12 +19,12 @@ class ChatService {
         val userCheck: Boolean = users.last().userId >= userId
 
         if (makeChat(userId, message.userFrom) == 0 && userCheck) {
-            messages.plusAssign(message.copy(messageId = mid++, chatId = cid++, userTo = userId))
-            return mid
+            messages.plusAssign(message.copy(messageId = messageIdInc++, chatId = chatIdInc++, userTo = userId))
+            return messageIdInc
         } else if (userCheck) {
-            messages.plusAssign(message.copy(messageId = mid++, chatId = makeChat(userId, message.userFrom),
+            messages.plusAssign(message.copy(messageId = messageIdInc++, chatId = makeChat(userId, message.userFrom),
                     userTo = userId))
-            return mid
+            return messageIdInc
         }
         return 0
     }
@@ -48,22 +47,17 @@ class ChatService {
         return messages.removeIf { it.messageId == messageId }
     }
 
-    fun getListMessages(chatId: Int, messageId: Int): MutableList<Message> {
-        var result: MutableList<Message> = mutableListOf()
-        return try {
-            result = messages.filter { message ->
-                message.chatId == chatId && !message.read
-            }.takeLastWhile { it.messageId > messageId } as MutableList<Message>
+    fun getListMessages(chatId: Int, messageId: Int): List<Message> {
+        val result = messages.filter { message ->
+            message.chatId == chatId && !message.read
+        }.takeLastWhile { it.messageId > messageId }
 
-            messages.filter { message ->
-                message.chatId == chatId
-            }.forEach { message ->
-                message.read = true
-            }
-            result
-        } catch (e: RuntimeException) {
-            result
+        messages.filter { message ->
+            message.chatId == chatId
+        }.forEach { message ->
+            message.read = true
         }
+        return result
     }
 
     fun getUnreadChatsCount(userId: Int): Int {
