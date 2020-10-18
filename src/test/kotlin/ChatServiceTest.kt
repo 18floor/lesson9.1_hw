@@ -18,7 +18,7 @@ class ChatServiceTest {
                 userId = 1,
                 fullName = "Bill"
         ))
-        assertEquals(user2.userId, 12)
+        assertEquals(user2.userId, 2)
     }
 
     @Test
