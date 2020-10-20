@@ -79,11 +79,11 @@ fun main() {
 
 //    println(service.deleteChat(chatId = 1))
 
-    println(service.getUnreadChatsCount(userId = 1))
+    println(service.getUnreadChatsCount(userId = 10))
 
     println()
 
-    println(service.getUnreadChats(userId = 1))
+    println(service.getUnreadChats(userId = 10))
 
 
 }
